@@ -367,7 +367,7 @@ function MyPolls(){
 
       {events.length===0?(
         <Card style={{textAlign:"center",padding:48}}>
-          <div style={{fontSize:32,marginBottom:16}}>📅</div>
+          <div style={{fontSize:32,marginBottom:16}}><img src="/logo.svg" style={{width:28,height:28,borderRadius:8}} /></div>
           <div style={{fontSize:15,fontWeight:600,color:C.text,marginBottom:8}}>No polls yet</div>
           <div style={{fontSize:13,color:C.textMid,marginBottom:24}}>Create your first poll to get started.</div>
           <Btn onClick={()=>navigate("create")}>Create a poll</Btn>
@@ -660,7 +660,7 @@ function Landing(){
     <div style={{maxWidth:440,margin:"0 auto",padding:"90px 20px 60px",textAlign:"center"}}>
       <div style={{width:52,height:52,borderRadius:14,background:C.accent,
         display:"flex",alignItems:"center",justifyContent:"center",
-        fontSize:24,margin:"0 auto 24px",boxShadow:`0 8px 24px ${C.accent}44`}}>📅</div>
+        fontSize:24,margin:"0 auto 24px",boxShadow:`0 8px 24px ${C.accent}44`}}><img src="/logo.svg" style={{width:28,height:28,borderRadius:8}} /></div>
       <h1 style={{fontFamily:font,fontSize:36,fontWeight:800,color:C.text,margin:"0 0 12px",letterSpacing:"-.02em"}}>
         Gettogether
       </h1>
@@ -704,7 +704,7 @@ export default function App(){
         <button onClick={()=>navigate("")} style={{background:"none",border:"none",cursor:"pointer",
           display:"flex",alignItems:"center",gap:10,padding:0}}>
           <div style={{width:28,height:28,borderRadius:8,background:C.accent,
-            display:"flex",alignItems:"center",justifyContent:"center",fontSize:14}}>📅</div>
+            display:"flex",alignItems:"center",justifyContent:"center",fontSize:14}}><img src="/logo.svg" style={{width:28,height:28,borderRadius:8}} /></div>
           <span style={{fontFamily:font,fontWeight:700,fontSize:15,color:C.text}}>Gettogether</span>
         </button>
         <div style={{display:"flex",gap:8,alignItems:"center"}}>
