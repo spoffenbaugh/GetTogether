@@ -78,6 +78,11 @@ async function loadResponseCounts(eventIds){
   return counts;
 }
 
+async function deleteEvent(eventId){
+  await sbFetch(`events?id=eq.${eventId}`, { method: "DELETE" });
+  await sbFetch(`responses?event_id=eq.${eventId}`, { method: "DELETE" });
+}
+
 function useHash(){
   const [hash,setHash]=useState(window.location.hash.slice(1)||"");
   useEffect(()=>{
@@ -349,6 +354,8 @@ function MyPolls(){
   const [events,setEvents]=useState([]);
   const [counts,setCounts]=useState({});
   const [loading,setLoading]=useState(true);
+  const [confirmDelete,setConfirmDelete]=useState(null);
+  const [deleting,setDeleting]=useState(false);
 
   useEffect(()=>{
     async function load(){
@@ -363,6 +370,15 @@ function MyPolls(){
     }
     load();
   },[]);
+
+  async function handleDelete(id){
+    setDeleting(true);
+    await deleteEvent(id);
+    setEvents(prev=>prev.filter(e=>e.id!==id));
+    setCounts(prev=>{ const n={...prev}; delete n[id]; return n; });
+    setConfirmDelete(null);
+    setDeleting(false);
+  }
 
   if(loading) return <Centered>Loading your polls…</Centered>;
 
@@ -411,11 +427,33 @@ function MyPolls(){
                       onClick={()=>navigate(`results/${evt.id}`)}>
                       View results
                     </Btn>
+                    <Btn variant="danger" style={{padding:"7px 14px",fontSize:12}}
+                      onClick={()=>setConfirmDelete(evt.id)}>
+                      Delete
+                    </Btn>
                   </div>
                 </div>
               </Card>
             );
           })}
+        </div>
+      )}
+      {confirmDelete&&(
+        <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",display:"flex",
+          alignItems:"center",justifyContent:"center",zIndex:100,padding:20}}>
+          <div style={{background:C.surface,border:`1px solid ${C.borderHi}`,borderRadius:14,
+            padding:28,maxWidth:380,width:"100%"}}>
+            <div style={{fontSize:16,fontWeight:700,color:C.text,marginBottom:8}}>Delete this poll?</div>
+            <div style={{fontSize:13,color:C.textMid,marginBottom:24}}>
+              This will permanently delete the poll and all responses. This cannot be undone.
+            </div>
+            <div style={{display:"flex",gap:10,justifyContent:"flex-end"}}>
+              <Btn variant="ghost" onClick={()=>setConfirmDelete(null)} disabled={deleting}>Cancel</Btn>
+              <Btn variant="danger" onClick={()=>handleDelete(confirmDelete)} disabled={deleting}>
+                {deleting?"Deleting…":"Yes, delete it"}
+              </Btn>
+            </div>
+          </div>
         </div>
       )}
     </PageWrap>
