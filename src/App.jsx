@@ -98,6 +98,23 @@ const C={
 };
 const font="'Plus Jakarta Sans','DM Sans',sans-serif";
 
+function Logo({ size=28, radius=8 }){
+  return(
+    <svg width={size} height={size} viewBox="0 0 512 512" style={{borderRadius:radius,display:"block"}}>
+      <rect x="131" y="141" width="250" height="230" rx="26" fill="none" stroke="#e8714a" strokeWidth="15"/>
+      <rect x="131" y="196" width="250" height="15" fill="#e8714a"/>
+      <rect x="183" y="130" width="18" height="48" rx="9" fill="#e8714a"/>
+      <rect x="311" y="130" width="18" height="48" rx="9" fill="#e8714a"/>
+      <rect x="163" y="248" width="30" height="30" rx="7" fill="#e8714a"/>
+      <rect x="241" y="248" width="30" height="30" rx="7" fill="#e8714a"/>
+      <rect x="319" y="248" width="30" height="30" rx="7" fill="#e8714a"/>
+      <rect x="163" y="306" width="30" height="30" rx="7" fill="#e8714a"/>
+      <rect x="241" y="306" width="30" height="30" rx="7" fill="#e8714a"/>
+    </svg>
+  );
+}
+
+
 function Card({ children, style={}, onClick }){
   return(
     <div onClick={onClick} style={{background:C.surface,border:`1px solid ${C.border}`,borderRadius:12,
@@ -358,7 +375,7 @@ function MyPolls(){
 
       {events.length===0?(
         <Card style={{textAlign:"center",padding:48}}>
-          <img src="/logo.svg" style={{width:48,height:48,borderRadius:12,display:"block",margin:"0 auto 16px"}}/>
+          <div style={{display:"flex",justifyContent:"center",marginBottom:16}}><Logo size={48} radius={12}/></div>
           <div style={{fontSize:15,fontWeight:600,color:C.text,marginBottom:8}}>No polls yet</div>
           <div style={{fontSize:13,color:C.textMid,marginBottom:24}}>Create your first poll to get started.</div>
           <Btn onClick={()=>navigate("create")}>Create a poll</Btn>
@@ -644,7 +661,7 @@ function ResultsView({ eventId }){
 function Landing(){
   return(
     <div style={{maxWidth:440,margin:"0 auto",padding:"90px 20px 60px",textAlign:"center"}}>
-      <img src="/logo.svg" style={{width:52,height:52,borderRadius:14,display:"block",margin:"0 auto 24px"}}/>
+      <div style={{margin:"0 auto 24px",display:"flex",justifyContent:"center"}}><Logo size={52} radius={14}/></div>
       <h1 style={{fontFamily:font,fontSize:36,fontWeight:800,color:C.text,margin:"0 0 12px",letterSpacing:"-.02em"}}>
         Gettogether
       </h1>
@@ -686,7 +703,7 @@ export default function App(){
         display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <button onClick={()=>navigate("")} style={{background:"none",border:"none",cursor:"pointer",
           display:"flex",alignItems:"center",gap:10,padding:0}}>
-          <img src="/logo.svg" style={{width:28,height:28,borderRadius:8}}/>
+          <Logo size={28} radius={8}/>
           <span style={{fontFamily:font,fontWeight:700,fontSize:15,color:C.text}}>Gettogether</span>
         </button>
         <div style={{display:"flex",gap:8,alignItems:"center"}}>
